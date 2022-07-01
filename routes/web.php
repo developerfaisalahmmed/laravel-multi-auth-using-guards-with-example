@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,13 +25,37 @@ Route::get('/clear', function() {
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+//
+//Route::get('/login', [UserController::class, 'login'])->name('login');
+//
+//
+//Route::group(['middleware' => ['auth:admin']], function() {
+//    Route::get('/users', [UserController::class, 'user']);
+//});
 
-Route::get('/login', [UserController::class, 'login'])->name('login');
+
+Route::view('/', 'welcome');
+Auth::routes();
+
+//Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+//Route::get('/login/writer', 'Auth\LoginController@showWriterLoginForm');
+//Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+//Route::get('/register/writer', 'Auth\RegisterController@showWriterRegisterForm');
+
+Route::get('/login/admin', [LoginController::class, 'showAdminLoginForm'])->name('showAdminLoginForm');
+Route::get('/login/writer', [LoginController::class, 'showWriterLoginForm'])->name('showWriterLoginForm');
+Route::get('/register/admin', [RegisterController::class, 'showAdminRegisterForm'])->name('showAdminRegisterForm');
+Route::get('/register/writer', [RegisterController::class, 'showWriterRegisterForm'])->name('showWriterRegisterForm');
+
+Route::post('/login/admin', [LoginController::class, 'adminLogin'])->name('adminLogin');
+Route::post('/login/writer', [LoginController::class, 'writerLogin'])->name('writerLogin');
+Route::post('/register/admin', [RegisterController::class, 'createAdmin'])->name('createAdmin');
+Route::post('/register/writer', [RegisterController::class, 'createWriter'])->name('createWriter');
 
 
-Route::group(['middleware' => ['auth:admin']], function() {
-    Route::get('/users', [UserController::class, 'user']);
-});
+Route::view('/home', 'home')->middleware('auth');
+Route::view('/admin', 'admin');
+Route::view('/writer', 'writer');

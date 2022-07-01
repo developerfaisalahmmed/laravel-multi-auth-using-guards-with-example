@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function user(){
+
+//        https://pusher.com/tutorials/multiple-authentication-guards-laravel/
         Auth::guard('admin')->user();
     }
 
