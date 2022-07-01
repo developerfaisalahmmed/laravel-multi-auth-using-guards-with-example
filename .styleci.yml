@@ -1,0 +1,12 @@
+php:
+  preset: laravel
+  disabled:
+    - no_unused_imports
+  finder:
+    not-name:
+      - document.text
+js:
+  finder:
+    not-name:
+      - vite.config.js
+css: true
