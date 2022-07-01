@@ -8,6 +8,11 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
 
+
+//documents
+
+//https://pusher.com/tutorials/multiple-authentication-guards-laravel/
+
 class LoginController extends Controller
 {
     public function __construct()
